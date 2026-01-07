@@ -4,11 +4,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>3D Clock</title>
     <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="MyClockDisplay" class="clock" onload="showTime()"></div>
+    <!-- Three.js Canvas Container -->
+    <div id="canvas-container"></div>
+
+    <!-- Clock Display Overlay -->
+    <div class="clock-wrapper">
+        <div class="clock-container">
+            <div class="clock-ring"></div>
+            <div class="clock-ring ring-2"></div>
+            <div class="clock-inner">
+                <div id="MyClockDisplay" class="clock"></div>
+                <div id="DateDisplay" class="date"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Three.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="main.js"></script>
 </body>
 </html>

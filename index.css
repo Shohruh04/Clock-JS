@@ -1,17 +1,199 @@
-body {
-    background: black;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.clock {
+body {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0f0f23 100%);
+    min-height: 100vh;
+    overflow: hidden;
+    font-family: 'Orbitron', monospace;
+}
+
+/* Three.js Canvas Container */
+#canvas-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* Clock Wrapper - Centers the clock */
+.clock-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* Clock Container with Glass Effect */
+.clock-container {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Animated Rings */
+.clock-ring {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    border-top-color: #17D4FE;
+    border-bottom-color: #17D4FE;
+    animation: rotate-ring 4s linear infinite;
+    box-shadow:
+        0 0 30px rgba(23, 212, 254, 0.3),
+        inset 0 0 30px rgba(23, 212, 254, 0.1);
+}
+
+.clock-ring.ring-2 {
+    width: 85%;
+    height: 85%;
+    border-top-color: #fe17a4;
+    border-bottom-color: #fe17a4;
+    animation: rotate-ring-reverse 3s linear infinite;
+    box-shadow:
+        0 0 30px rgba(254, 23, 164, 0.3),
+        inset 0 0 30px rgba(254, 23, 164, 0.1);
+}
+
+@keyframes rotate-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rotate-ring-reverse {
+    0% {
+        transform: rotate(360deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+/* Inner Clock Display */
+.clock-inner {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: rgba(10, 10, 30, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(23, 212, 254, 0.2);
+    box-shadow:
+        0 0 60px rgba(23, 212, 254, 0.2),
+        0 0 100px rgba(254, 23, 164, 0.1),
+        inset 0 0 60px rgba(0, 0, 0, 0.5);
+}
+
+/* Time Display */
+.clock {
     color: #17D4FE;
-    font-size: 60px;
-    font-family: Orbitron;
-    letter-spacing: 7px;
-   
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-shadow:
+        0 0 10px rgba(23, 212, 254, 0.8),
+        0 0 20px rgba(23, 212, 254, 0.6),
+        0 0 40px rgba(23, 212, 254, 0.4),
+        0 0 80px rgba(23, 212, 254, 0.2);
+    animation: glow-pulse 2s ease-in-out infinite alternate;
+}
 
+@keyframes glow-pulse {
+    0% {
+        text-shadow:
+            0 0 10px rgba(23, 212, 254, 0.8),
+            0 0 20px rgba(23, 212, 254, 0.6),
+            0 0 40px rgba(23, 212, 254, 0.4),
+            0 0 80px rgba(23, 212, 254, 0.2);
+    }
+    100% {
+        text-shadow:
+            0 0 15px rgba(23, 212, 254, 1),
+            0 0 30px rgba(23, 212, 254, 0.8),
+            0 0 60px rgba(23, 212, 254, 0.6),
+            0 0 100px rgba(23, 212, 254, 0.4);
+    }
+}
 
+/* Date Display */
+.date {
+    color: #fe17a4;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 3px;
+    margin-top: 15px;
+    text-shadow:
+        0 0 10px rgba(254, 23, 164, 0.8),
+        0 0 20px rgba(254, 23, 164, 0.4);
+    text-transform: uppercase;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .clock-container {
+        width: 300px;
+        height: 300px;
+    }
+
+    .clock-inner {
+        width: 210px;
+        height: 210px;
+    }
+
+    .clock {
+        font-size: 28px;
+        letter-spacing: 2px;
+    }
+
+    .date {
+        font-size: 11px;
+        letter-spacing: 2px;
+    }
+}
+
+@media (max-width: 480px) {
+    .clock-container {
+        width: 250px;
+        height: 250px;
+    }
+
+    .clock-inner {
+        width: 175px;
+        height: 175px;
+    }
+
+    .clock {
+        font-size: 22px;
+        letter-spacing: 1px;
+    }
+
+    .date {
+        font-size: 9px;
+        letter-spacing: 1px;
+    }
 }
